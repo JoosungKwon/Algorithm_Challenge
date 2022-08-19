@@ -1,21 +1,18 @@
 import java.util.Scanner;
-//달팽이는 낮에 A미터 올라갈 수 있다.
-// 하지만, 밤에 잠을 자는 동안 B미터 미끄러진다.
-// 또, 정상에 올라간 후에는 미끄러지지 않는다.
-// 입력
-// 세 정수 A, B, V가 공백으로 구분되어서 주어진다. (1 ≤ B < A ≤ V ≤ 1,000,000,000)
-// 출력
-// 달팽이가 나무 막대를 모두 올라가는데 며칠이 걸리는지 출력한다.
-// --> 일반적인 구현으로 풀면 시간초과
-// (V / A - B)+1
+
+// 숫자 N(1 ≤ N ≤ 1,000,000,000)이 주어졌을 때
+// 벌집의 중앙 1에서 N번 방까지 최소 개수의 방을 지나서 갈 때 몇 개의 방을 지나가는지(시작과 끝을 포함하여)를 계산하라
+// 벌집은 6각형이므로 i*N 만큼 증가한다 초기 1부터 : 1(1) + 6 -> 7(2) + 12 -> 19(3) +18 --> 37 ...
+// while을 이용하여 벌집의 크기를 늘려가며 N 값과 벌집의 크기를 비교한다.
 public class BOJ_2292 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int A = sc.nextInt() ;
-        int B = sc.nextInt() ;
-        int V = sc.nextInt() - A ; // 마지막 전까지 올라가는데 걸리는 기간을 구하기 위해
-        int result = (V % (A - B) == 0 ? V / (A - B) : (V / (A - B)) + 1) ; // 마지막 전까지 올라가는데 걸리는 기간이 딱 떨어지면 몫 아니면 몫 + 1 (why? 하루 더 올라가야하니까)
-        result = (result == 0 ? V == 0 ? 0 : 1 : result); // 마지막을 빼고 올라가는데 걸리는 기간 --> 만약 0 이라면 2A >= V or V == A
-        System.out.println(result + 1); // 마지막을 빼고 올라가는데 걸리는 기간 + 마지막 올라가는 날(하루)
+        int cnt = 1, bee_hive = 1; // 벌집의 크기와 단계를 저장하기 위한 변수
+        Scanner sc = new Scanner(System.in); // 입력도구
+        int N = sc.nextInt() ; // 입력값(N)
+        while(N > bee_hive){ // N이 벌집의 크기보다 크다면 반복
+            bee_hive += cnt * 6 ; // 반복하면서 벌집의 크기를 규칙에 맞게 증가
+            cnt ++; // 단계를 하나씩 증가
+        }
+        System.out.println(cnt); // 몇번째 단계에 있는지 출력
     }
 }
