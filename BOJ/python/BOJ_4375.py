@@ -18,5 +18,3 @@ while True:
         print(cnt)
     except Exception:
         break
-
-
